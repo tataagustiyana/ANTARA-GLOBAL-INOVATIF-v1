@@ -1,0 +1,104 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Default-deny catch-all
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    // User profiles collection
+    match /users/{userId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    // Transactions collection
+    match /transactions/{transactionId} {
+      allow read, write: if true;
+    }
+
+    // Stores / Cabang Toko
+    match /stores/{storeId} {
+      allow read, write: if true;
+    }
+
+    // Bagan Akun (Chart of Accounts)
+    match /chart_of_accounts/{accountId} {
+      allow read, write: if true;
+    }
+
+    // Data Karyawan
+    match /employees/{employeeId} {
+      allow read, write: if true;
+    }
+
+    // Penggajian / Payroll
+    match /payroll_runs/{payrollId} {
+      allow read, write: if true;
+    }
+
+    // Target & Anggaran (Budgets)
+    match /budgets/{budgetId} {
+      allow read, write: if true;
+    }
+
+    // Profil Perusahaan & Logo
+    match /company_profile/{profileId} {
+      allow read, write: if true;
+    }
+
+    // Pinjaman Karyawan
+    match /employee_loans/{loanId} {
+      allow read, write: if true;
+    }
+
+    // Hutang Supplier (Accounts Payable)
+    match /supplier_debts/{debtId} {
+      allow read, write: if true;
+    }
+
+    // Purchase Orders (PO)
+    match /purchase_orders/{poId} {
+      allow read, write: if true;
+    }
+
+    // Komponen Pajak
+    match /tax_components/{compId} {
+      allow read, write: if true;
+    }
+
+    // Penyetoran Pajak & NTPN
+    match /tax_payments/{paymentId} {
+      allow read, write: if true;
+    }
+
+    // Pengaturan Aplikasi & Integrasi Google Sheets
+    match /app_settings/{settingId} {
+      allow read, write: if true;
+    }
+
+    // Log Aktivitas Real-time Antar Perangkat
+    match /live_activities/{activityId} {
+      allow read, write: if true;
+    }
+
+    // Riwayat Tutup Buku (Book Closing)
+    match /book_closing_history/{closingId} {
+      allow read, write: if true;
+    }
+
+    // Konfigurasi Periode Buku
+    match /book_period_config/{configId} {
+      allow read, write: if true;
+    }
+
+    // Manajemen Hutang & Cicilan (Debt Records & Installments)
+    match /debt_records/{debtId} {
+      allow read, write: if true;
+    }
+  }
+}

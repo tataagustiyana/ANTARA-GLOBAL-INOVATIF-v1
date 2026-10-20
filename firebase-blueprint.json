@@ -1,0 +1,284 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile with role-based access control and store assignment",
+      "type": "object",
+      "properties": {
+        "User_ID": { "type": "string", "description": "Unique user or auth UID" },
+        "Email": { "type": "string", "format": "email", "description": "User email address" },
+        "Full_Name": { "type": "string", "description": "Full name of user" },
+        "Role": { "type": "string", "enum": ["Superadmin", "Finance Admin", "Store Manager", "Employee"] },
+        "Store_ID": { "type": "string", "description": "Assigned store ID or ALL" },
+        "Status": { "type": "string", "enum": ["Active", "Inactive"] },
+        "Avatar": { "type": "string" }
+      },
+      "required": ["User_ID", "Email", "Full_Name", "Role", "Store_ID"]
+    },
+    "Transaction": {
+      "title": "Transaction",
+      "description": "Financial transaction record",
+      "type": "object",
+      "properties": {
+        "Transaction_ID": { "type": "string" },
+        "Date": { "type": "string" },
+        "Store_ID": { "type": "string" },
+        "Type": { "type": "string", "enum": ["Pemasukan", "Pengeluaran", "Transfer"] },
+        "Category": { "type": "string" },
+        "Amount": { "type": "number" },
+        "Payment_Method": { "type": "string" },
+        "Description": { "type": "string" },
+        "Proof_Attachment_URL": { "type": "string" },
+        "Created_By": { "type": "string" },
+        "Status": { "type": "string", "enum": ["Approved", "Pending", "Rejected"] }
+      },
+      "required": ["Transaction_ID", "Date", "Store_ID", "Type", "Amount", "Status"]
+    },
+    "Store": {
+      "title": "Store",
+      "description": "Store outlet data",
+      "type": "object",
+      "properties": {
+        "Store_ID": { "type": "string" },
+        "Store_Name": { "type": "string" },
+        "Address": { "type": "string" },
+        "Phone": { "type": "string" },
+        "Manager_Name": { "type": "string" },
+        "Status": { "type": "string", "enum": ["Active", "Inactive"] }
+      },
+      "required": ["Store_ID", "Store_Name", "Status"]
+    },
+    "ChartOfAccount": {
+      "title": "ChartOfAccount",
+      "description": "Accounting chart of account",
+      "type": "object",
+      "properties": {
+        "Account_Code": { "type": "string" },
+        "Account_Name": { "type": "string" },
+        "Category": { "type": "string", "enum": ["Asset", "Liability", "Equity", "Revenue", "Expense"] }
+      },
+      "required": ["Account_Code", "Account_Name", "Category"]
+    },
+    "Employee": {
+      "title": "Employee",
+      "description": "Staff and payroll member",
+      "type": "object",
+      "properties": {
+        "Employee_ID": { "type": "string" },
+        "Store_ID": { "type": "string" },
+        "Full_Name": { "type": "string" },
+        "Position": { "type": "string" },
+        "Base_Salary": { "type": "number" },
+        "Allowance_Fixed": { "type": "number" },
+        "Bank_Name": { "type": "string" },
+        "Account_Number": { "type": "string" },
+        "Status": { "type": "string", "enum": ["Active", "Inactive"] }
+      },
+      "required": ["Employee_ID", "Store_ID", "Full_Name", "Base_Salary"]
+    },
+    "PayrollRun": {
+      "title": "PayrollRun",
+      "description": "Monthly employee payroll run",
+      "type": "object",
+      "properties": {
+        "Payroll_ID": { "type": "string" },
+        "Period_Month": { "type": "number" },
+        "Period_Year": { "type": "number" },
+        "Store_ID": { "type": "string" },
+        "Employee_ID": { "type": "string" },
+        "Net_Salary": { "type": "number" },
+        "Payment_Status": { "type": "string", "enum": ["Draft", "Approved", "Paid"] }
+      },
+      "required": ["Payroll_ID", "Period_Month", "Period_Year", "Employee_ID", "Net_Salary"]
+    },
+    "StoreBudget": {
+      "title": "StoreBudget",
+      "description": "Monthly target and expense budget",
+      "type": "object",
+      "properties": {
+        "Budget_ID": { "type": "string" },
+        "Store_ID": { "type": "string" },
+        "Period_Month": { "type": "number" },
+        "Period_Year": { "type": "number" },
+        "Revenue_Target": { "type": "number" },
+        "Total_Expense_Budget": { "type": "number" }
+      },
+      "required": ["Budget_ID", "Store_ID", "Period_Month", "Period_Year"]
+    },
+    "CompanyProfile": {
+      "title": "CompanyProfile",
+      "description": "Company legal branding and identity",
+      "type": "object",
+      "properties": {
+        "companyName": { "type": "string" },
+        "brandName": { "type": "string" },
+        "legalAddress": { "type": "string" },
+        "currencySymbol": { "type": "string" }
+      },
+      "required": ["brandName"]
+    },
+    "EmployeeLoan": {
+      "title": "EmployeeLoan",
+      "description": "Employee term loan and installments",
+      "type": "object",
+      "properties": {
+        "Loan_ID": { "type": "string" },
+        "Employee_ID": { "type": "string" },
+        "Total_Amount": { "type": "number" },
+        "Remaining_Balance": { "type": "number" },
+        "Status": { "type": "string", "enum": ["Active", "Paid_Off", "Cancelled"] }
+      },
+      "required": ["Loan_ID", "Employee_ID", "Total_Amount"]
+    },
+    "SupplierDebt": {
+      "title": "SupplierDebt",
+      "description": "Accounts payable to vendors and suppliers",
+      "type": "object",
+      "properties": {
+        "Debt_ID": { "type": "string" },
+        "Supplier_Name": { "type": "string" },
+        "Invoice_Number": { "type": "string" },
+        "Total_Amount": { "type": "number" },
+        "Remaining_Balance": { "type": "number" },
+        "Status": { "type": "string", "enum": ["Unpaid", "Partial", "Paid", "Overdue"] }
+      },
+      "required": ["Debt_ID", "Supplier_Name", "Total_Amount"]
+    },
+    "PurchaseOrder": {
+      "title": "PurchaseOrder",
+      "description": "Purchase order to suppliers",
+      "type": "object",
+      "properties": {
+        "PO_ID": { "type": "string" },
+        "PO_Number": { "type": "string" },
+        "Supplier_Name": { "type": "string" },
+        "Grand_Total": { "type": "number" },
+        "Status": { "type": "string", "enum": ["Draft", "Approved", "Ordered", "Received", "Cancelled"] }
+      },
+      "required": ["PO_ID", "PO_Number", "Supplier_Name", "Grand_Total"]
+    },
+    "TaxComponent": {
+      "title": "TaxComponent",
+      "description": "Configurable tax component and rate",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "code": { "type": "string" },
+        "name": { "type": "string" },
+        "category": { "type": "string" },
+        "rate": { "type": "number" },
+        "calculationBase": { "type": "string" },
+        "status": { "type": "string", "enum": ["Active", "Inactive"] }
+      },
+      "required": ["id", "code", "name", "rate", "status"]
+    },
+    "TaxPaymentRecord": {
+      "title": "TaxPaymentRecord",
+      "description": "Tax settlement and billing records",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "taxComponentId": { "type": "string" },
+        "periodMonth": { "type": "number" },
+        "periodYear": { "type": "number" },
+        "amount": { "type": "number" },
+        "billingCode": { "type": "string" },
+        "status": { "type": "string", "enum": ["Paid", "Pending", "Draft"] }
+      },
+      "required": ["id", "periodMonth", "periodYear", "amount", "billingCode"]
+    },
+    "AppSetting": {
+      "title": "AppSetting",
+      "description": "Application settings and integrations like Google Sheets config",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "webAppUrl": { "type": "string" },
+        "spreadsheetId": { "type": "string" },
+        "isConnected": { "type": "boolean" },
+        "autoSync": { "type": "boolean" },
+        "lastSyncTime": { "type": "string" }
+      },
+      "required": ["id"]
+    },
+    "LiveActivity": {
+      "title": "LiveActivity",
+      "description": "Real-time cross-device activity stream and audit logs",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "timestamp": { "type": "string" },
+        "userName": { "type": "string" },
+        "userRole": { "type": "string" },
+        "action": { "type": "string" },
+        "details": { "type": "string" },
+        "entityType": { "type": "string" },
+        "storeId": { "type": "string" },
+        "actorDeviceId": { "type": "string" }
+      },
+      "required": ["id", "timestamp", "userName", "action", "details"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/User" },
+      "description": "User profiles collection"
+    },
+    "/transactions/{transactionId}": {
+      "schema": { "$ref": "#/entities/Transaction" },
+      "description": "Financial transactions collection"
+    },
+    "/stores/{storeId}": {
+      "schema": { "$ref": "#/entities/Store" },
+      "description": "Store branches collection"
+    },
+    "/chart_of_accounts/{accountId}": {
+      "schema": { "$ref": "#/entities/ChartOfAccount" },
+      "description": "Chart of accounts collection"
+    },
+    "/employees/{employeeId}": {
+      "schema": { "$ref": "#/entities/Employee" },
+      "description": "Employees collection"
+    },
+    "/payroll_runs/{payrollId}": {
+      "schema": { "$ref": "#/entities/PayrollRun" },
+      "description": "Payroll runs collection"
+    },
+    "/budgets/{budgetId}": {
+      "schema": { "$ref": "#/entities/StoreBudget" },
+      "description": "Monthly budgets collection"
+    },
+    "/company_profile/{profileId}": {
+      "schema": { "$ref": "#/entities/CompanyProfile" },
+      "description": "Company profile collection"
+    },
+    "/employee_loans/{loanId}": {
+      "schema": { "$ref": "#/entities/EmployeeLoan" },
+      "description": "Employee loans collection"
+    },
+    "/supplier_debts/{debtId}": {
+      "schema": { "$ref": "#/entities/SupplierDebt" },
+      "description": "Supplier accounts payable collection"
+    },
+    "/purchase_orders/{poId}": {
+      "schema": { "$ref": "#/entities/PurchaseOrder" },
+      "description": "Purchase orders collection"
+    },
+    "/tax_components/{compId}": {
+      "schema": { "$ref": "#/entities/TaxComponent" },
+      "description": "Tax components collection"
+    },
+    "/tax_payments/{paymentId}": {
+      "schema": { "$ref": "#/entities/TaxPaymentRecord" },
+      "description": "Tax payments collection"
+    },
+    "/app_settings/{settingId}": {
+      "schema": { "$ref": "#/entities/AppSetting" },
+      "description": "App settings and configs collection"
+    },
+    "/live_activities/{activityId}": {
+      "schema": { "$ref": "#/entities/LiveActivity" },
+      "description": "Cross-device live activities collection"
+    }
+  }
+}

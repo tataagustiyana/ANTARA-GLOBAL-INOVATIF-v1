@@ -1,0 +1,8 @@
+{
+  "name": "Antara Global Inovatif Finance & Payroll",
+  "description": "Sistem Manajemen Keuangan dan Penggajian (Payroll) Multi-Store terintegrasi Google Sheets Database dengan P&L, Arus Kas, dan Slip Gaji.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
